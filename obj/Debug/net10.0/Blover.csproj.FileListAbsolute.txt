@@ -1,0 +1,15 @@
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Blover
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Blover.deps.json
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Blover.runtimeconfig.json
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Blover.dll
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Blover.pdb
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.GeneratedMSBuildEditorConfig.editorconfig
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.AssemblyInfoInputs.cache
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.AssemblyInfo.cs
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.csproj.CoreCompileInputs.cache
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.sourcelink.json
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.dll
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/refint/Blover.dll
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.pdb
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.genruntimeconfig.cache
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/ref/Blover.dll
