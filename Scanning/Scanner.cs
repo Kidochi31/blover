@@ -287,6 +287,7 @@ namespace Blover.Scanning
             {"ref", REF}, {"mut", MUT},
             {"assume", ASSUME}, {"assert", ASSERT}, {"confirm", CONFIRM}, {"pre", PRE}, {"post", POST},
             {"fun", FUN}, {"ret", RET},
+            {"type", TYPE}, {"refine", REFINE},
         };
     }
 }

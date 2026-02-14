@@ -26,6 +26,10 @@ namespace Blover.Parsing
         {
             // certain keywords to look for:
             // identifier -> assignment
+            // assume -> assumption statement
+            // assert -> assertion statement
+            // confirm -> confirmation statement
+            // type -> type definition
             if (Check(IDENTIFIER))
             {
                 return AssignmentOrCall();
@@ -37,6 +41,14 @@ namespace Blover.Parsing
             else if (Check(ASSERT))
             {
                 return AssertionStatement();
+            }
+            else if (Check(CONFIRM))
+            {
+                return ConfirmationStatement();
+            }
+            else if (Check(TYPE))
+            {
+                return TypeDefinition();
             }
             else if (CheckAny(EOF, NEWLINE))
             {
@@ -191,6 +203,60 @@ namespace Blover.Parsing
             IdentifierToken target = (IdentifierToken)Consume(IDENTIFIER, "Expected variable.");
             Token terminator = ConsumeAny("Expected end of line.", null, EOF, NEWLINE);
             return new Stmt.Assertion(assert, target, terminator);
+        }
+
+        // ConfirmationStatement -> 'confirm' Variable Terminator ;
+        Stmt ConfirmationStatement()
+        {
+            Token assert = Consume(CONFIRM, "Expected 'confirm'.");
+            IdentifierToken target = (IdentifierToken)Consume(IDENTIFIER, "Expected variable.");
+            Token terminator = ConsumeAny("Expected end of line.", null, EOF, NEWLINE);
+            return new Stmt.Confirmation(assert, target, terminator);
+        }
+
+        // TypeDefinition -> TypeRefinement;
+        // TypeDefinition -> 'type' TypeVariable '=' ('refine') ... ;
+        
+        Stmt TypeDefinition()
+        {
+            Token type = Consume(TYPE, "Expected 'type'.");
+            IdentifierToken newType = (IdentifierToken)Consume(IDENTIFIER, "Expected type variable.");
+            Token equal = Consume(EQUAL, "Expected '='.");
+            if (Check(REFINE))
+            {
+                return TypeRefinement(type, newType, equal);
+            }
+            Token nextToken = Peek();
+            throw PanicError(nextToken, nextToken, "Expected type definition.");
+        }
+        
+        // TypeRefinement -> 'type' TypeVariable '=' 'refine' TypeVariable Variable NewLines?
+        //                   '{' NewLines Statement* NewLines? '}' NewLines ;
+        Stmt TypeRefinement(Token typeToken, IdentifierToken newType, Token equal)
+        {
+            Token refine = Consume(REFINE, "Expected 'refine'.");
+            IdentifierToken oldType = (IdentifierToken)Consume(IDENTIFIER, "Expected type variable.");
+            IdentifierToken value = (IdentifierToken)Consume(IDENTIFIER, "Expected variable.");
+            while(Match(NEWLINE)) {}
+            Token openBrace = Consume(LEFT_BRACE, "Expected '{'.");
+            Consume(NEWLINE, "Expected newline.");
+            while(Match(NEWLINE)) {}
+            List<Stmt> body = [];
+            while (!Match(RIGHT_BRACE) && !IsAtEnd())
+            {
+                Stmt? stmt = Statement();
+                if(stmt is not null)
+                {
+                    body.Add(stmt);
+                }
+            }
+            Token closeBrace = Previous;
+            if(closeBrace.Type != RIGHT_BRACE)
+            {
+                throw PanicError(closeBrace, closeBrace, "Expected '}'.");
+            }
+            Token terminator = ConsumeAny("Expected newline.", null, NEWLINE, EOF);
+            return new Stmt.TypeRefinement(typeToken, newType, equal, refine, oldType, value, openBrace, body, closeBrace, terminator);
         }
     }
 }

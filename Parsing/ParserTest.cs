@@ -9,6 +9,7 @@ namespace Blover.Parsing
         static Dictionary<string, (string, Action)> Commands = new Dictionary<string, (string, Action)> 
         {
             { "stmt", ("Test the statement parser via repl", StmtReplTest) },
+            { "stmt-file", ("Test the statement parser via opening a file", StmtFileTest) },
         };
 
         public static void ReplTest()
@@ -59,7 +60,7 @@ namespace Blover.Parsing
 
             while (true)
             {
-                string? text = Repl.GetUserInput();
+                string? text = Repl.GetMultiLineUserInput();
                 if (text is null)
                 {
                     return;
@@ -76,6 +77,47 @@ namespace Blover.Parsing
                     }
                 }
                 Console.WriteLine("");
+            }
+        }
+
+        public static void StmtFileTest()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to the statement parser file tester.");
+            Console.WriteLine("Enter in a file to load and parse.");
+            Console.WriteLine("Enter 'quit' to quit.");
+            Console.WriteLine("Enter 'menu' to return to the menu.");
+
+            while (true)
+            {
+                string? file = Repl.GetSingleLineUserInput();
+                if (file is null)
+                {
+                    return;
+                }
+                try
+                {
+                    string text = File.ReadAllText(file);
+                    (List<Stmt?> statements, _) = ParseStatementAndPrintOnError(text);
+                    foreach(Stmt? statement in statements){
+                        if(statement is null)
+                        {
+                            Console.WriteLine("Statement: [Invalid Statement]");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Statement: {statement}");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("");
+                
+                
+                
             }
         }
     }

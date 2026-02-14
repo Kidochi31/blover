@@ -28,7 +28,7 @@ namespace Blover.Debugging
             return newText.ToString();
         }
 
-        public static string? GetUserInput()
+        public static string? GetMultiLineUserInput()
         {
             string text = "";
             while (true)
@@ -54,6 +54,28 @@ namespace Blover.Debugging
                     continue;
                 }
                 return text[..^1];
+            }
+        }
+
+        public static string? GetSingleLineUserInput()
+        {
+            while (true)
+            {
+                Console.Write(">>> ");
+                string? text = Console.ReadLine();
+                if (text is null || text == "")
+                {
+                    continue;
+                }
+                if (text == "quit")
+                {
+                    System.Environment.Exit(0);
+                }
+                if (text == "menu")
+                {
+                    return null;
+                }
+                return text;
             }
         }
     }

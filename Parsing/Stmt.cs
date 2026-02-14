@@ -83,5 +83,21 @@ namespace Blover.Parsing
 
             public override string ToString() => $"assert {Target.IdentifierName}";
         }
+
+        public record class Confirmation(Token ConfirmToken, IdentifierToken Target, Token Terminator) : Stmt
+        {
+            public override Token GetFirstToken() => ConfirmToken;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"confirm {Target.IdentifierName}";
+        }
+
+        public record class TypeRefinement(Token TypeToken, IdentifierToken NewType, Token Equal, Token Refine, IdentifierToken OldType, IdentifierToken Value, Token OpenBrace, List<Stmt> Body, Token CloseBrace, Token Terminator) : Stmt
+        {
+            public override Token GetFirstToken() => TypeToken;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"type {NewType.IdentifierName} = refine {OldType.IdentifierName} {Value.IdentifierName}\n{{\n{string.Join("\n", from stmt in Body select $"    {stmt}")}\n}}";
+        }
     }
 }

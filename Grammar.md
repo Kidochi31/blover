@@ -17,20 +17,20 @@ A declaration may declare a struct, type, refinement, or function.
 # Functions
 A function must have a name, and comma-separated function parameters which are typed
 `FunctionDec -> 'fun' Variable '(' FunctionParameterStatementList ')' '{' FunctionBody '}' ;`
-`FunctionParameterStatementList -> FunctionParameterStatement* ;` 
-`FunctionParameterStatement -> AssignmentStatement | FunctionAssertionStatement | ParameterStatement | MutStatement;`
+`FunctionParameterStatementList -> Statement* ;`
 
 
 # Function Body
-`FunctionBody -> FunctionBodyStatement* ;`
-`FunctionBodyStatement -> RefAssignmentStatement | GuaranteeStatement | ReturnStatement | ControlBlock ;`
+`FunctionBody -> Statement* ;`
 
 # Control Structures
-`ControlBlock -> SequenceBlock | IfBlock | WhileBlock;`
-`SequenceBlock -> '{' FunctionBodyStatement* '}' ;`
-`IfBlock -> 'if' Variable '{' FunctionBodyStatement* '}' ('else' '{' FunctionBodyStatement* '}')? ;` 
+
 
 # Statements
+`Statement -> DeclarationStatement | RefAssignmentStatement | GuaranteeStatement | ConfirmationStatement`
+`           | ParameterStatement | FunctionAssertionStatement | MutStatement | ReturnStatement`
+`           | TypeDefinition | ControlBlock ;`
+
 `DeclarationStatement -> Variable ':' TypeVariable Terminator ;`
 
 `AssignmentStatement -> AssignVariable | AssignInt | AssignBool | CallStatement ;`
@@ -66,5 +66,16 @@ A function must have a name, and comma-separated function parameters which are t
 
 `ReturnStatement -> 'ret' (Variable)? Terminator ;`
 
-# Types
+`TypeDefinition -> TypeRefinement ;`
+`TypeRefinement -> 'type' TypeVariable '=' 'refine' TypeVariable Variable NewLines?`
+`                   '{' NewLines Statement* NewLines? '}' NewLines ;`
 
+`ControlBlock -> SequenceBlock | IfBlock | WhileBlock;`
+`SequenceBlock -> '{' Statement* '}' ;`
+`IfBlock -> 'if' Variable '{' Statement* '}' ('else' '{' Statement* '}')? ;` 
+
+# Miscellaneous
+`NewLines -> NewLine+ ;`
+
+# Keywords
+`Keyword -> 'int' | 'bool' | 'in' | 'out' | 'ref' | 'assume' | 'assert' | 'confirm' | 'param' | 'mut' | 'ret' | 'type' | 'refine' | 'if' ;` 

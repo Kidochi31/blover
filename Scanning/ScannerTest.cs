@@ -41,7 +41,7 @@ namespace Blover.Scanning
             Console.WriteLine("Enter 'menu' to return to the menu.");
 
             while (true){
-                string? text = Repl.GetUserInput();
+                string? text = Repl.GetMultiLineUserInput();
                 if (text is null)
                 {
                     return;

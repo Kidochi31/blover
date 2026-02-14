@@ -1,0 +1,14 @@
+type a_type = refine Integer v ; Declare a type called a_type which is a refined Integer
+{
+    zero : Integer
+    zero = int 0
+    five : Integer
+    five = int 5 ; Declare constants zero and five
+    a0 : Boolean
+    gte(v, zero, out a0) ; a0 = v >= zero
+    a1 : Boolean
+    lte(v, five, out a1) ; a1 = v <= five
+    a2 : Boolean
+    and(a0, a1, out a2) ; a2 = a0 and a1
+    confirm a2
+}

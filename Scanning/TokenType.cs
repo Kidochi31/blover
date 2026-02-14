@@ -10,7 +10,7 @@ namespace Blover.Scanning
         REF, MUT,
         ASSUME, ASSERT, CONFIRM, PRE, POST,
         FUN, RET,
-
+        TYPE, REFINE,
 
         // Punctuator tokens
         EQUAL,
