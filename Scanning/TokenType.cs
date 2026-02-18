@@ -8,7 +8,7 @@ namespace Blover.Scanning
         INT, BOOL,
         IN, OUT, PARAM,
         REF, MUT,
-        ASSUME, ASSERT, CONFIRM, PRE, POST,
+        ASSUME, ASSERT, CONFIRM, PRE, POST, BODY,
         FUN, RET,
         TYPE, REFINE,
 

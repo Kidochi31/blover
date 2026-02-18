@@ -15,20 +15,19 @@ A declaration may declare a struct, type, refinement, or function.
 `Declaration -> StructDec | TypeDec | RefinementDec | FunctionDec ;`
 
 # Functions
-A function must have a name, and comma-separated function parameters which are typed
-`FunctionDec -> 'fun' Variable '(' FunctionParameterStatementList ')' '{' FunctionBody '}' ;`
-`FunctionParameterStatementList -> Statement* ;`
-
-
-# Function Body
-`FunctionBody -> Statement* ;`
+A function must have a name, and can contain a pre, post, and body block of statements
+`FunctionDec -> 'fun' Variable '{' FunctionBlock* '}' ;`
+`FunctionBlock -> PreBlock | PostBlock | BodyBlock ;`
+`PreBlock -> 'pre' NewLines? Block ;`
+`PreBlock -> 'post' NewLines? Block ;`
+`BodyBlock -> 'body' NewLines? Block ;`
 
 # Control Structures
 
 
 # Statements
 `Statement -> DeclarationStatement | RefAssignmentStatement | GuaranteeStatement | ConfirmationStatement`
-`           | ParameterStatement | FunctionAssertionStatement | MutStatement | ReturnStatement`
+`           | ParameterStatement | MutStatement | ReturnStatement`
 `           | TypeDefinition | ControlBlock ;`
 
 `DeclarationStatement -> Variable ':' TypeVariable Terminator ;`
@@ -54,28 +53,24 @@ A function must have a name, and comma-separated function parameters which are t
 
 `ConfirmationStatement -> 'confirm' Variable Terminator ;`
 
-`ParameterStatement -> InParameterStatement | OutParameterStatement ;`
-`InParameterStatement -> 'in' 'param' Variable ':' TypeVariable Terminator ;`
-`OutParameterStatement -> 'out' 'param' Variable ':' TypeVariable Terminator ;`
-
 `FunctionAssertionStatement -> PreConditionStatement | PostConditionStatement ;`
 `PreConditionStatement -> 'pre' Variable Terminator ;`
 `PostConditionStatement -> 'post' Variable Terminator ;`
 
 `MutStatement -> 'mut' Variable ('if' Variable)? Terminator ;`
 
-`ReturnStatement -> 'ret' (Variable)? Terminator ;`
+`ReturnStatement -> 'ret' Terminator ;`
 
 `TypeDefinition -> TypeRefinement ;`
-`TypeRefinement -> 'type' TypeVariable '=' 'refine' TypeVariable Variable NewLines?`
-`                   '{' NewLines Statement* NewLines? '}' NewLines ;`
+`TypeRefinement -> 'type' TypeVariable '=' 'refine' TypeVariable Variable NewLines? Block ;`
 
 `ControlBlock -> SequenceBlock | IfBlock | WhileBlock;`
 `SequenceBlock -> '{' Statement* '}' ;`
-`IfBlock -> 'if' Variable '{' Statement* '}' ('else' '{' Statement* '}')? ;` 
+`IfBlock -> 'if' Variable '{' Statement* '}' ('else' '{' Statement* '}')? ;`
 
 # Miscellaneous
 `NewLines -> NewLine+ ;`
+`Block -> '{' Newlines Statement* NewLines? '}' NewLines ; `
 
 # Keywords
 `Keyword -> 'int' | 'bool' | 'in' | 'out' | 'ref' | 'assume' | 'assert' | 'confirm' | 'param' | 'mut' | 'ret' | 'type' | 'refine' | 'if' ;` 

@@ -44,7 +44,7 @@ namespace Blover.Parsing
 
         
 
-        //Will ignore tokens until it finds: EOF
+        //Will ignore tokens until it finds: EOF or Newline
         void RecoverFromError()
         {
             Advance();
@@ -54,6 +54,7 @@ namespace Blover.Parsing
                 switch (t.Type)
                 {
                     case EOF:
+                    case NEWLINE:
                         return;
                 }
                 Advance();
@@ -148,7 +149,7 @@ namespace Blover.Parsing
             return Peek().Type == type;
         }
 
-        public bool IsAtEnd() => Peek().Type == EOF;
+        public bool IsAtEnd() {return Peek().Type == EOF;}
 
 
         void LogError(Token startToken, Token endToken, string message, ErrorSuggestion? suggestion = null)

@@ -12,3 +12,18 @@ type a_type = refine Integer v ; Declare a type called a_type which is a refined
     and(a0, a1, out a2) ; a2 = a0 and a1
     confirm a2
 }
+param in a : a_type
+
+type b_type = refine Integer v ; Declare a type called b_type which is a refined Integer
+{
+    ten : Integer
+    ten = int 10 ; Declare constant ten
+    b0 : Boolean
+    gt(v, a, out b0) ; b0 = v > a
+    b1 : Boolean
+    lt(v, ten, out b1) ; b1 = v < ten
+    b2 : Boolean
+    and(b0, b1, out b2) ; b2 = b0 and b1
+    confirm b2
+}
+param in b : b_type

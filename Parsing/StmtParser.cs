@@ -17,7 +17,7 @@ namespace Blover.Parsing
             {
                 return Statement();
             }
-            catch (ParseException) { AdvanceUntil(NEWLINE); return null; }
+            catch (ParseException) {RecoverFromError(); return null; }
         }
 
 
@@ -30,6 +30,8 @@ namespace Blover.Parsing
             // assert -> assertion statement
             // confirm -> confirmation statement
             // type -> type definition
+            // param -> param statement
+            // ret -> return statement
             if (Check(IDENTIFIER))
             {
                 return AssignmentOrCall();
@@ -50,8 +52,17 @@ namespace Blover.Parsing
             {
                 return TypeDefinition();
             }
+            else if (Check(PARAM))
+            {
+                return ParamStatement();
+            }
+            else if (Check(RET))
+            {
+                return ReturnStatement();
+            }
             else if (CheckAny(EOF, NEWLINE))
             {
+                Advance(); // eat the token
                 return null;
             }
             // otherwise, the statement is invalid
@@ -91,7 +102,7 @@ namespace Blover.Parsing
             Token colon = Consume(COLON, "Expected ':'.");
             IdentifierToken targetType = (IdentifierToken)Consume(IDENTIFIER, "Expected type.");
             Token terminator = ConsumeAny("Expected end of line.", null, EOF, NEWLINE);
-            return new Stmt.Declaration(variable, colon, targetType, terminator);
+            return new Stmt.VariableDeclaration(variable, colon, targetType, terminator);
         }
 
         // CallStatement -> Variable '(' CallArgumentList? ')' Terminator ;
@@ -257,6 +268,39 @@ namespace Blover.Parsing
             }
             Token terminator = ConsumeAny("Expected newline.", null, NEWLINE, EOF);
             return new Stmt.TypeRefinement(typeToken, newType, equal, refine, oldType, value, openBrace, body, closeBrace, terminator);
+        }
+        // `ParameterStatement -> InParameterStatement | OutParameterStatement ;`
+        // `InParameterStatement -> 'param' 'in' Variable ':' TypeVariable Terminator ;`
+        // `OutParameterStatement -> 'param' 'out' Variable ':' TypeVariable Terminator ;`
+        Stmt ParamStatement()
+        {
+            Token param = Consume(PARAM, "Expected 'param'.");
+            if (!CheckAny(IN, OUT))
+            {
+                Token nextToken = Peek();
+                throw PanicError(nextToken, nextToken, "Expected either 'in' or 'out' after 'param'.");
+            }
+            Token inOutToken = Advance();
+            IdentifierToken variable = (IdentifierToken)Consume(IDENTIFIER, "Expected variable.");
+            Token colon = Consume(COLON, "Expected ':'.");
+            IdentifierToken type = (IdentifierToken)Consume(IDENTIFIER, "Expected type.");
+            Token terminator = ConsumeAny("Expected end of line.", null, EOF, NEWLINE);
+            if(inOutToken.Type == IN)
+            {
+                return new Stmt.InParam(param, inOutToken, variable, colon, type, terminator);
+            }
+            else
+            {
+                return new Stmt.OutParam(param, inOutToken, variable, colon, type, terminator);
+            }
+        }
+
+        // ReturnStatement -> 'ret' Terminator ;
+        Stmt ReturnStatement()
+        {
+            Token ret = Consume(RET, "Expected 'ret'.");
+            Token terminator = ConsumeAny("Expected end of line.", null, EOF, NEWLINE);
+            return new Stmt.Return(ret, terminator);
         }
     }
 }

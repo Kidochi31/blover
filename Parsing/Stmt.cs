@@ -1,3 +1,4 @@
+using Blover.Aux;
 using Blover.Scanning;
 
 namespace Blover.Parsing
@@ -9,7 +10,7 @@ namespace Blover.Parsing
 
         public override abstract string ToString();
 
-        public record class Declaration(IdentifierToken Variable, Token Colon, IdentifierToken TargetType, Token Terminator) : Stmt
+        public record class VariableDeclaration(IdentifierToken Variable, Token Colon, IdentifierToken TargetType, Token Terminator) : Stmt
         {
             public override Token GetFirstToken() => Variable;
             public override Token GetLastToken() => Terminator;
@@ -97,7 +98,31 @@ namespace Blover.Parsing
             public override Token GetFirstToken() => TypeToken;
             public override Token GetLastToken() => Terminator;
 
-            public override string ToString() => $"type {NewType.IdentifierName} = refine {OldType.IdentifierName} {Value.IdentifierName}\n{{\n{string.Join("\n", from stmt in Body select $"    {stmt}")}\n}}";
+            public override string ToString() => $"type {NewType.IdentifierName} = refine {OldType.IdentifierName} {Value.IdentifierName}\n{{\n{string.Join("\n", from stmt in Body select $"{stmt}".Indent())}\n}}";
+        }
+
+        public record class InParam(Token ParamToken, Token InToken, IdentifierToken Variable, Token Colon, IdentifierToken Type, Token Terminator) : Stmt
+        {
+            public override Token GetFirstToken() => ParamToken;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"param in {Variable.IdentifierName} : {Type.IdentifierName}";
+        }
+
+        public record class OutParam(Token ParamToken, Token OutToken, IdentifierToken Variable, Token Colon, IdentifierToken Type, Token Terminator) : Stmt
+        {
+            public override Token GetFirstToken() => ParamToken;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"param out {Variable.IdentifierName} : {Type.IdentifierName}";
+        }
+
+        public record class Return(Token RetToken, Token Terminator) : Stmt
+        {
+            public override Token GetFirstToken() => RetToken;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"ret";
         }
     }
 }
