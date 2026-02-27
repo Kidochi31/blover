@@ -10,6 +10,8 @@ namespace Blover.Parsing
         {
             { "stmt", ("Test the statement parser via repl", StmtReplTest) },
             { "stmt-file", ("Test the statement parser via opening a file", StmtFileTest) },
+            { "decl", ("Test the declaration parser via repl", DeclReplTest) },
+            { "decl-file", ("Test the declaration parser via opening a file", DeclFileTest) },
         };
 
         public static void ReplTest()
@@ -48,6 +50,37 @@ namespace Blover.Parsing
             
 
             return (statements, scanner);
+        }
+
+        public static (List<Decl?>, Scanner) ParseDeclarationAndPrintOnError(string text)
+        {
+            (List<Token>? tokens, Scanner scanner) = ScannerTest.ScanAndPrintOnError(text);
+            if (tokens is null)
+            {
+                Console.WriteLine("\nCannot parse text.");
+                Console.WriteLine("");
+                return ([], scanner);
+            }
+
+            Parser parser = new Parser(scanner, tokens);
+            List<Decl?> declarations = new();
+            while (!parser.IsAtEnd())
+            {
+                Decl? expression = parser.ParseDeclaration();
+                if (expression is null || parser.Errors.Count > 0)
+                {
+                    Console.WriteLine("\nParsing errors:");
+                    foreach (ParseError error in parser.Errors)
+                    {
+                        Console.WriteLine(error.VisualMessage(scanner.Lines));
+                    }
+                    Console.WriteLine("");
+                }
+                declarations.Add(expression);
+            }
+            
+
+            return (declarations, scanner);
         }
 
         public static void StmtReplTest()
@@ -107,6 +140,77 @@ namespace Blover.Parsing
                         else
                         {
                             Console.WriteLine($"Statement: {statement}");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                Console.WriteLine("");
+                
+                
+                
+            }
+        }
+
+        public static void DeclReplTest()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to the declaration parser repl.");
+            Console.WriteLine("Enter in the text of one or more declarations to see parse result.");
+            Console.WriteLine("Enter 'quit' to quit.");
+            Console.WriteLine("Enter 'menu' to return to the menu.");
+
+            while (true)
+            {
+                string? text = Repl.GetMultiLineUserInput();
+                if (text is null)
+                {
+                    return;
+                }
+                (List<Decl?> statements, _) = ParseDeclarationAndPrintOnError(text);
+                foreach(Decl? statement in statements){
+                    if(statement is null)
+                    {
+                        Console.WriteLine("Declaration: [Invalid Statement]");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Declaration: {statement}");
+                    }
+                }
+                Console.WriteLine("");
+            }
+        }
+
+        public static void DeclFileTest()
+        {
+            Console.WriteLine("");
+            Console.WriteLine("Welcome to the declaration parser file tester.");
+            Console.WriteLine("Enter in a file to load and parse.");
+            Console.WriteLine("Enter 'quit' to quit.");
+            Console.WriteLine("Enter 'menu' to return to the menu.");
+
+            while (true)
+            {
+                string? file = Repl.GetSingleLineUserInput();
+                if (file is null)
+                {
+                    return;
+                }
+                try
+                {
+                    string text = File.ReadAllText(file);
+                    (List<Decl?> statements, _) = ParseDeclarationAndPrintOnError(text);
+                    foreach(Decl? statement in statements){
+                        if(statement is null)
+                        {
+                            Console.WriteLine("Declaration: [Invalid Statement]");
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Declaration: {statement}");
                         }
                     }
                 }

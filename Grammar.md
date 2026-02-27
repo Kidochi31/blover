@@ -19,7 +19,7 @@ A function must have a name, and can contain a pre, post, and body block of stat
 `FunctionDec -> 'fun' Variable '{' FunctionBlock* '}' ;`
 `FunctionBlock -> PreBlock | PostBlock | BodyBlock ;`
 `PreBlock -> 'pre' NewLines? Block ;`
-`PreBlock -> 'post' NewLines? Block ;`
+`PostBlock -> 'post' NewLines? Block ;`
 `BodyBlock -> 'body' NewLines? Block ;`
 
 # Control Structures

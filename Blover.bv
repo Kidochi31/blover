@@ -1,29 +1,58 @@
-type a_type = refine Integer v ; Declare a type called a_type which is a refined Integer
+fun test
 {
-    zero : Integer
-    zero = int 0
-    five : Integer
-    five = int 5 ; Declare constants zero and five
-    a0 : Boolean
-    gte(v, zero, out a0) ; a0 = v >= zero
-    a1 : Boolean
-    lte(v, five, out a1) ; a1 = v <= five
-    a2 : Boolean
-    and(a0, a1, out a2) ; a2 = a0 and a1
-    confirm a2
-}
-param in a : a_type
+    pre
+    {
+        type a_type = refine Integer v ; Declare a type called a_type which is a refined Integer
+        {
+            zero : Integer
+            zero = int 0
+            five : Integer
+            five = int 5 ; Declare constants zero and five
+            a0 : Boolean
+            gte(v, zero, out a0) ; a0 = v >= zero
+            a1 : Boolean
+            lte(v, five, out a1) ; a1 = v <= five
+            a2 : Boolean
+            and(a0, a1, out a2) ; a2 = a0 and a1
+            confirm a2
+        }
+        param in a : a_type
 
-type b_type = refine Integer v ; Declare a type called b_type which is a refined Integer
-{
-    ten : Integer
-    ten = int 10 ; Declare constant ten
-    b0 : Boolean
-    gt(v, a, out b0) ; b0 = v > a
-    b1 : Boolean
-    lt(v, ten, out b1) ; b1 = v < ten
-    b2 : Boolean
-    and(b0, b1, out b2) ; b2 = b0 and b1
-    confirm b2
+        type b_type = refine Integer v ; Declare a type called b_type which is a refined Integer
+        {
+            ten : Integer
+            ten = int 10 ; Declare constant ten
+            b0 : Boolean
+            gt(v, a, out b0) ; b0 = v > a
+            b1 : Boolean
+            lt(v, ten, out b1) ; b1 = v < ten
+            b2 : Boolean
+            and(b0, b1, out b2) ; b2 = b0 and b1
+            confirm b2
+        }
+        param in b : b_type
+    }
+    post
+    {
+        type c_type = refine Integer v ; Declare a type called c_type which is a refined Integer
+        {
+            one : Integer
+            one = int 1 ; Declare constant one
+            nine : Integer
+            nine = int 9 ; Declare constant nine
+            c0 : Boolean
+            lte(one, v, out c0) ; c0 = one <= v
+            c1 : Boolean
+            gte(nine, v, out c1) ; c1 = nine >= v
+            c2 : Boolean
+            and(c0, c1, out c2) ; c2 = c0 and c1
+            confirm c2
+        }
+        param out c : c_type
+    }
+    body
+    {
+        minus(b, a, out c) ; c = b - a0
+        ret
+    }
 }
-param in b : b_type

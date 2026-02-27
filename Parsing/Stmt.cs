@@ -124,5 +124,13 @@ namespace Blover.Parsing
 
             public override string ToString() => $"ret";
         }
+
+        public record class Declaration(Decl Decl) : Stmt
+        {
+            public override Token GetFirstToken() => Decl.GetFirstToken();
+            public override Token GetLastToken() => Decl.GetLastToken();
+
+            public override string ToString() => Decl.ToString();
+        }
     }
 }
