@@ -13,3 +13,9 @@
 /home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.pdb
 /home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.genruntimeconfig.cache
 /home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/ref/Blover.dll
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.csproj.AssemblyReference.cache
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/libz3.dll
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/Microsoft.Z3.dll
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/runtimes/osx-x64/native/libz3.dylib
+/home/kidochi/Hacking/Languages/Blover/bin/Debug/net10.0/runtimes/win-x64/native/libz3.dll
+/home/kidochi/Hacking/Languages/Blover/obj/Debug/net10.0/Blover.csproj.Up2Date

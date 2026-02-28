@@ -1,4 +1,5 @@
 global using System;
+global using Z3 = Microsoft.Z3;
 using Blover.Debugging;
 using Blover.Parsing;
 using Blover.Scanning;

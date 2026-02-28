@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "5a+MacXM4Js=",
+  "dgSpecHash": "B5owq/9btzg=",
   "success": true,
   "projectFilePath": "/home/kidochi/Hacking/Languages/Blover/Blover.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/home/kidochi/.nuget/packages/microsoft.z3/4.12.2/microsoft.z3.4.12.2.nupkg.sha512"
+  ],
   "logs": []
 }
