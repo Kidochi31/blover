@@ -3,15 +3,17 @@ global using Z3 = Microsoft.Z3;
 using Blover.Debugging;
 using Blover.Parsing;
 using Blover.Scanning;
+using Blover.Zlover;
 
 namespace Blover
 {
-    internal class Blover
+    internal class BloverMenu
     {
         static Dictionary<string, (string, Action)> Commands = new Dictionary<string, (string, Action)> 
         {
             { "scanner", ("Test the scanner via repl", ScannerTest.ReplTest) },
-            { "parser", ("Test the parser via repl", ParserTest.ReplTest) }
+            { "parser", ("Test the parser via repl", ParserTest.ReplTest) },
+            { "zlover", ("Test zlover via repl", ZloverMenu.Run) }
         };
 
         public static void Main(string[] args)

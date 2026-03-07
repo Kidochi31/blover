@@ -1,13 +1,6 @@
 using Blover.Debugging;
-using Blover.Scanning;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blover.Scanning
+namespace Blover.Zlover.Scanning
 {
     internal class ScannerTest
     {
@@ -34,7 +27,7 @@ namespace Blover.Scanning
         public static void ReplTest()
         {
             Console.WriteLine("");
-            Console.WriteLine("Welcome to the blover scanner repl.");
+            Console.WriteLine("Welcome to the zlover scanner repl.");
             Console.WriteLine("Enter in text to see the tokens/errors.");
             Console.WriteLine("Press enter to create a new line, press enter twice to see result.");
             Console.WriteLine("Enter 'quit' to quit.");

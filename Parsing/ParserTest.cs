@@ -8,15 +8,15 @@ namespace Blover.Parsing
     {
         static Dictionary<string, (string, Action)> Commands = new Dictionary<string, (string, Action)> 
         {
-            { "stmt", ("Test the statement parser via repl", StmtReplTest) },
-            { "stmt-file", ("Test the statement parser via opening a file", StmtFileTest) },
-            { "decl", ("Test the declaration parser via repl", DeclReplTest) },
-            { "decl-file", ("Test the declaration parser via opening a file", DeclFileTest) },
+            { "stmt", ("Test the blover statement parser via repl", StmtReplTest) },
+            { "stmt-file", ("Test the blover statement parser via opening a file", StmtFileTest) },
+            { "decl", ("Test the blover declaration parser via repl", DeclReplTest) },
+            { "decl-file", ("Test the blover declaration parser via opening a file", DeclFileTest) },
         };
 
         public static void ReplTest()
         {
-            string IntroText = "Welcome to the parser repl!\nEnter where to start parsing, or 'help' for help.";
+            string IntroText = "Welcome to the blover parser repl!\nEnter where to start parsing, or 'help' for help.";
             Menu menu = new Menu(Commands, IntroText, true);
             menu.RunMenu();
         }
@@ -86,7 +86,7 @@ namespace Blover.Parsing
         public static void StmtReplTest()
         {
             Console.WriteLine("");
-            Console.WriteLine("Welcome to the statement parser repl.");
+            Console.WriteLine("Welcome to the blover statement parser repl.");
             Console.WriteLine("Enter in the text of one or more statements to see parse result.");
             Console.WriteLine("Enter 'quit' to quit.");
             Console.WriteLine("Enter 'menu' to return to the menu.");
@@ -116,7 +116,7 @@ namespace Blover.Parsing
         public static void StmtFileTest()
         {
             Console.WriteLine("");
-            Console.WriteLine("Welcome to the statement parser file tester.");
+            Console.WriteLine("Welcome to the blover statement parser file tester.");
             Console.WriteLine("Enter in a file to load and parse.");
             Console.WriteLine("Enter 'quit' to quit.");
             Console.WriteLine("Enter 'menu' to return to the menu.");
@@ -157,7 +157,7 @@ namespace Blover.Parsing
         public static void DeclReplTest()
         {
             Console.WriteLine("");
-            Console.WriteLine("Welcome to the declaration parser repl.");
+            Console.WriteLine("Welcome to the blover declaration parser repl.");
             Console.WriteLine("Enter in the text of one or more declarations to see parse result.");
             Console.WriteLine("Enter 'quit' to quit.");
             Console.WriteLine("Enter 'menu' to return to the menu.");
@@ -187,7 +187,7 @@ namespace Blover.Parsing
         public static void DeclFileTest()
         {
             Console.WriteLine("");
-            Console.WriteLine("Welcome to the declaration parser file tester.");
+            Console.WriteLine("Welcome to the blover declaration parser file tester.");
             Console.WriteLine("Enter in a file to load and parse.");
             Console.WriteLine("Enter 'quit' to quit.");
             Console.WriteLine("Enter 'menu' to return to the menu.");
