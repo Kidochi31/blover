@@ -52,7 +52,7 @@ fun test
     }
     body
     {
-        minus(b, a, out c) ; c = b - a0
+        minus(b, a, out c) ; c = b - a
         ret
     }
 }

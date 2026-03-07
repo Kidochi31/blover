@@ -1,0 +1,65 @@
+fun test
+{
+    dec a ; a's declaration
+    dec zero
+    zero = int 0
+    dec five
+    five = int 5
+    dec a0
+    a0 = call 0 gte(a, zero)
+    a0v = verify gte(a0, a, zero)
+    assume a0v
+    dec a1
+    a1 = call 0 lte(a, five)
+    a1v = verify lte(a1, a, five)
+    assume a1v
+    dec a2
+    a2 = call 0 and(a0, a1)
+    a2v = verify and(a2, a0, a1)
+    assume a2v
+    assume a2 ; assume because it is a parameter in
+
+    dec b ; b's declaration
+    dec ten
+    ten = int 10
+    dec b0
+    b0 = call 0 gt(b, a)
+    b0v = verify gt(b0, b, a)
+    assume b0v
+    dec b1
+    b1 = call 0 lt(b, ten)
+    b1v = verify lt(b1, b, ten)
+    assume b1v
+    dec b2
+    b2 = call 0 and(b0, b1)
+    b2v = verify and(b2, b0, b1)
+    assume b2v
+    assume b2 ; assume because it is a parameter in
+
+    dec c ; declare output parameter c0
+
+    ; function body
+    c = call 0 minus(b, a) ; c = b - a
+    cv = verify minus(c, b, a)
+    assume cv
+
+    ; check assignment of c is valid
+    dec one
+    one = int 1
+    dec nine
+    nine = int 9
+    dec c0
+    c0 = call 0 lte(one, c)
+    c0v = verify lte(c0, one, c)
+    assume c0v
+    dec c1
+    c1 = call 0 gte(nine, c)
+    c1v = verify gte(c1, nine, c)
+    assume c1v
+    dec c2
+    c2 = call 0 and(c0, c1)
+    c2v = verify and(c2, c0, c1)
+    assume c2v
+
+    assert c2 ; This is the check
+}
