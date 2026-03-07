@@ -17,10 +17,6 @@ A declaration may declare a struct, type, refinement, or function.
 # Functions
 A function must have a name, and can contain a pre, post, and body block of statements
 `FunctionDec -> 'fun' Variable Block ;`
-`FunctionBlock -> PreBlock | PostBlock | BodyBlock ;`
-`PreBlock -> 'pre' NewLines? Block ;`
-`PostBlock -> 'post' NewLines? Block ;`
-`BodyBlock -> 'body' NewLines? Block ;`
 
 # Control Structures
 
@@ -30,13 +26,13 @@ A function must have a name, and can contain a pre, post, and body block of stat
 
 `DeclarationStatement -> 'dec' Variable;`
 
-`AssignmentStatement -> AssignVariable | AssignInt | AssignBool | CallStatement ;`
+`AssignmentStatement -> AssignVariable | AssignInt | AssignBool | CallStatement | VerificationStatement ;`
 `AssignVariable -> Variable '=' Variable Terminator ;`
 `AssignInt -> Variable '=' 'int' Integer Terminator ;`
 `AssignBool -> Variable '=' 'bool' Boolean Terminator ;`
-`CallStatement -> Variable '=' Variable '(' Integer, CallArgumentList? ')' Terminator ;`
-`CallArgumentList -> CallArgument (',' CallArgument)* ;`
-`CallArgument -> Variable;`
+`CallStatement -> Variable '=' 'call' Integer Variable '(' CallArgumentList? ')' Terminator ;`
+`VerificationStatement -> Variable '=' 'verify' Variable '(' CallArgumentList? ')' Terminator ;`
+`CallArgumentList -> Variable (',' Variable)* ;`
 
 `GuaranteeStatement -> AssumptionStatement | AssertionStatement ;`
 `AssumptionStatement -> 'assume' Variable Terminator ;`
@@ -48,4 +44,4 @@ A function must have a name, and can contain a pre, post, and body block of stat
 `Block -> '{' Newlines Statement* NewLines? '}' NewLines ; `
 
 # Keywords
-`Keyword -> 'int' | 'bool' | 'assume' | 'assert' | 'dec' | 'fun' ;` 
+`Keyword -> 'int' | 'bool' | 'assume' | 'assert' | 'dec' | 'fun' | 'call' | 'verify' ;` 

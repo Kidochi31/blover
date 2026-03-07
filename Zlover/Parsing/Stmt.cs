@@ -42,22 +42,25 @@ namespace Blover.Zlover.Parsing
             public override string ToString() => $"{Target.IdentifierName} = bool {Value.Value}";
         }
 
-        public record class Call(IdentifierToken Function, Token Equal, Token OpenParen, CallArgumentList? Arguments, Token CloseParen, Token Terminator) : Stmt
+        public record class Call(IdentifierToken Variable, Token Equal, Token CallToken, IntegerToken OutputNumber, IdentifierToken Function, Token OpenParen, CallArgumentList? Arguments, Token CloseParen, Token Terminator) : Stmt
         {
-            public override Token GetFirstToken() => Function;
+            public override Token GetFirstToken() => Variable;
             public override Token GetLastToken() => Terminator;
 
-            public override string ToString() => $"{Function.IdentifierName}({Arguments})";
+            public override string ToString() => $"{Variable.IdentifierName} = call {OutputNumber.Value} {Function.IdentifierName}({Arguments})";
         }
 
-        public record class CallArgumentList(IntegerToken Output, List<(Token Comma, CallArgument Arg)> OtherArgs)
+        public record class Verification(IdentifierToken Variable, Token Equal, Token VerifyToken, IdentifierToken Function, Token OpenParen, CallArgumentList? Arguments, Token CloseParen, Token Terminator) : Stmt
         {
-            public override string ToString() => $"{Output.Value}{string.Join("", from arg in OtherArgs select $", {arg.Arg}")}";
+            public override Token GetFirstToken() => Variable;
+            public override Token GetLastToken() => Terminator;
+
+            public override string ToString() => $"{Variable.IdentifierName} = verify {Function.IdentifierName}({Arguments})";
         }
-        
-        public abstract record class CallArgument(IdentifierToken Arg)
+
+        public record class CallArgumentList(IdentifierToken Arg0, List<(Token Comma, IdentifierToken Arg)> OtherArgs)
         {
-            public override string ToString() => Arg.IdentifierName;
+            public override string ToString() => $"{Arg0.IdentifierName}{string.Join("", from arg in OtherArgs select $", {arg.Arg.IdentifierName}")}";
         }
 
         public record class Assumption(Token AssumeToken, IdentifierToken Target, Token Terminator) : Stmt

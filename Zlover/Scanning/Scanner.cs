@@ -281,6 +281,7 @@ namespace Blover.Zlover.Scanning
             {"assume", ASSUME}, {"assert", ASSERT},
             {"fun", FUN}, 
             {"dec", DEC},
+            {"call", CALL}, {"verify", VERIFY}
         };
     }
 }

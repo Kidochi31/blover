@@ -9,6 +9,7 @@ namespace Blover.Zlover.Scanning
         ASSUME, ASSERT,
         FUN,
         DEC,
+        CALL, VERIFY,
 
         // Punctuator tokens
         EQUAL,
