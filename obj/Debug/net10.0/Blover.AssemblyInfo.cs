@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Blover")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+00fb75f76c7e78487356d57b7730f56ee4575e9a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a4a775f3db6d207d4e95581778c7b7d0292a2b1e")]
 [assembly: System.Reflection.AssemblyProductAttribute("Blover")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Blover")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

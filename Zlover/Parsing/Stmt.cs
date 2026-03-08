@@ -12,7 +12,7 @@ namespace Blover.Zlover.Parsing
 
         public record class VariableDeclaration(Token Dec, IdentifierToken Variable, Token Terminator) : Stmt
         {
-            public override Token GetFirstToken() => Variable;
+            public override Token GetFirstToken() => Dec;
             public override Token GetLastToken() => Terminator;
 
             public override string ToString() => $"dec {Variable.IdentifierName}";

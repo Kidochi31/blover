@@ -1,12 +1,15 @@
 
+using Blover.Zlover.Scanning;
+
 namespace Blover.Zlover.Resolving
 {
-    internal class Variable(string name)
+    internal class Variable(string name, Token? decToken)
     {
         public string Identifier => $"{Name}%{IdNumber}";
         static int numberCounter = 0;
         public string Name = name;
         public int IdNumber = numberCounter++;
+        public Token? DecToken = decToken;
 
         public static bool operator ==(Variable a, Variable b)
         {
