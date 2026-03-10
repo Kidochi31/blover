@@ -12,11 +12,12 @@ A file is made up of zero or more declarations
 
 # Declarations
 A declaration may declare a struct, type, refinement, or function.
-`Declaration -> FunctionDec ;`
+`Declaration -> FunctionDefinition | VariableDeclaration ;`
 
 # Functions
 A function must have a name, and can contain a pre, post, and body block of statements
-`FunctionDec -> 'fun' Variable Block ;`
+`FunctionDefinition -> 'fun' Variable Block ;`
+`VariableDeclaration -> 'dec' Variable ;`
 
 # Control Structures
 

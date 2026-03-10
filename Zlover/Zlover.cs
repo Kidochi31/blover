@@ -1,5 +1,6 @@
 using Blover.Debugging;
 using Blover.Zlover.Parsing;
+using Blover.Zlover.Resolving;
 using Blover.Zlover.Scanning;
 
 namespace Blover.Zlover
@@ -10,6 +11,7 @@ namespace Blover.Zlover
         {
             { "scanner", ("Test the Zlover scanner via repl", ScannerTest.ReplTest) },
             { "parser", ("Test the Zlover parser via repl", ParserTest.ReplTest) },
+            { "resolver", ("Test the Zlover resolver via repl", ResolverTest.ReplTest) },
         };
 
         public static void Run()

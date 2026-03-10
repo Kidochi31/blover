@@ -1,3 +1,14 @@
+dec gte
+dec lte
+dec gt
+dec lt
+dec and
+dec minus
+
+
+
+
+
 fun test
 {
     dec a ; a's declaration
@@ -7,14 +18,17 @@ fun test
     five = int 5
     dec a0
     a0 = call 0 gte(a, zero)
+    dec a0v
     a0v = verify gte(a0, a, zero)
     assume a0v
     dec a1
     a1 = call 0 lte(a, five)
+    dec a1v
     a1v = verify lte(a1, a, five)
     assume a1v
     dec a2
     a2 = call 0 and(a0, a1)
+    dec a2v
     a2v = verify and(a2, a0, a1)
     assume a2v
     assume a2 ; assume because it is a parameter in
@@ -24,14 +38,17 @@ fun test
     ten = int 10
     dec b0
     b0 = call 0 gt(b, a)
+    dec b0v
     b0v = verify gt(b0, b, a)
     assume b0v
     dec b1
     b1 = call 0 lt(b, ten)
+    dec b1v
     b1v = verify lt(b1, b, ten)
     assume b1v
     dec b2
     b2 = call 0 and(b0, b1)
+    dec b2v
     b2v = verify and(b2, b0, b1)
     assume b2v
     assume b2 ; assume because it is a parameter in
@@ -40,6 +57,7 @@ fun test
 
     ; function body
     c = call 0 minus(b, a) ; c = b - a
+    dec cv
     cv = verify minus(c, b, a)
     assume cv
 
@@ -50,14 +68,17 @@ fun test
     nine = int 9
     dec c0
     c0 = call 0 lte(one, c)
+    dec c0v
     c0v = verify lte(c0, one, c)
     assume c0v
     dec c1
     c1 = call 0 gte(nine, c)
+    dec c1v
     c1v = verify gte(c1, nine, c)
     assume c1v
     dec c2
     c2 = call 0 and(c0, c1)
+    dec c2v
     c2v = verify and(c2, c0, c1)
     assume c2v
 

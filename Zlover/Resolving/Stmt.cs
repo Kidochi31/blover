@@ -37,14 +37,14 @@ namespace Blover.Zlover.Resolving
             public override string ToString() => $"{Variable} = call {OutputNumber} {Function}({Arguments})";
         }
 
-        public record class Verification(Variable Variable, Variable Function, CallArgumentList? Arguments, Parsing.Stmt BaseStmt) : Stmt(BaseStmt)
+        public record class Verification(Variable Variable, VerifyFunction Function, CallArgumentList? Arguments, Parsing.Stmt BaseStmt) : Stmt(BaseStmt)
         {
-            public override string ToString() => $"{Variable} = verify {Function}({Arguments})";
+            public override string ToString() => $"{Variable} = verify {Function.Name}({Arguments})";
         }
 
-        public record class CallArgumentList(Variable Arg0, List<Variable> OtherArgs)
+        public record class CallArgumentList(List<Variable> Args)
         {
-            public override string ToString() => $"{Arg0}{string.Join("", from arg in OtherArgs select $", {arg}")}";
+            public override string ToString() => $"{string.Join(", ", from arg in Args select $"{arg}")}";
         }
 
         public record class Assumption(Variable Target, Parsing.Stmt BaseStmt) : Stmt(BaseStmt)

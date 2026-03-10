@@ -25,5 +25,12 @@ namespace Blover.Zlover.Parsing
 
             public override string ToString() => $"{{\n{string.Join("\n", from stmt in Body select $"{stmt}".Indent())}\n}}";
         }
+
+        public record class VariableDeclaration(Token Dec, IdentifierToken Variable, Token Terminator) : Decl
+        {
+            public override Token GetFirstToken() => Dec;
+            public override Token GetLastToken() => Terminator;
+            public override string ToString() => $"dec {Variable.IdentifierName}";
+        }
     }
 }

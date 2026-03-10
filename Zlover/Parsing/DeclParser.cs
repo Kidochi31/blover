@@ -26,9 +26,14 @@ namespace Blover.Zlover.Parsing
         {
             // certain keywords to look for:
             // fun -> function definition
+            // dec -> variable declaration
             if (Check(FUN))
             {
                 return FunctionDefinition();
+            }
+            else if (Check(DEC))
+            {
+                return VariableDeclaration();
             }
             else if (CheckAny(EOF, NEWLINE))
             {
@@ -38,6 +43,14 @@ namespace Blover.Zlover.Parsing
             // otherwise, the statement is invalid
             Token nextToken = Peek();
             throw PanicError(nextToken, nextToken, "Expected statement.");
+        }
+
+        Decl VariableDeclaration()
+        {
+            Token dec = Consume(DEC, "Expected 'dec'.");
+            IdentifierToken varName = (IdentifierToken)Consume(IDENTIFIER, "Expected variable.");
+            Token terminator = ConsumeAny("Expected newline.", null, NEWLINE, EOF);
+            return new Decl.VariableDeclaration(dec, varName, terminator);
         }
 
         Decl FunctionDefinition()
